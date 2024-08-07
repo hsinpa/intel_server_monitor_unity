@@ -17,16 +17,16 @@ namespace Hsinpa
         [Header("Left Panel")]
         [Header("Status")]
         [SerializeField]
-        private StateSlotVIew stop_status;
+        private Hsinpa.UIStyle.UIStylesheet stop_status;
 
         [SerializeField]
-        private StateSlotVIew auto_status;
+        private Hsinpa.UIStyle.UIStylesheet auto_status;
 
         [SerializeField]
-        private StateSlotVIew manual_status;
+        private Hsinpa.UIStyle.UIStylesheet manual_status;
 
         [SerializeField]
-        private StateSlotVIew error_status;
+        private Hsinpa.UIStyle.UIStylesheet error_status;
 
         [Header("Consumption")]
         [SerializeField]
@@ -116,27 +116,27 @@ namespace Hsinpa
 
             ErrorCode.text = cduSystemConsumption.error_code + "";
 
-            stop_status.SetHighlight(cduSystemConsumption.status.stop);
-            auto_status.SetHighlight(cduSystemConsumption.status.auto);
-            manual_status.SetHighlight(cduSystemConsumption.status.manual);
-            error_status.SetHighlight(cduSystemConsumption.status.error);
+            stop_status.SetCharacteristic(cduSystemConsumption.status.stop ? 1 : 0);
+            auto_status.SetCharacteristic(cduSystemConsumption.status.auto ? 1 : 0);
+            manual_status.SetCharacteristic(cduSystemConsumption.status.manual ? 1 : 0);
+            error_status.SetCharacteristic(cduSystemConsumption.status.error ? 1 : 0);
 
-            power_slot.SetText(cduSystemConsumption.power + "W");
-            voltage_slot.SetText(cduSystemConsumption.voltage + "V");
-            electricity_slot.SetText(cduSystemConsumption.electric_current + "A");
+            power_slot.SetText("功率" + cduSystemConsumption.power + "W");
+            voltage_slot.SetText("電壓" + cduSystemConsumption.voltage + "V");
+            electricity_slot.SetText("電流" + cduSystemConsumption.electric_current + "A");
 
-            CPU_0_Temp.text = cduSystemConsumption.cpu_info.CPU0_Vcore_Temp;
-            CPU_0_Power.text = cduSystemConsumption.cpu_info.CPU0_Vcore_Pwr;
-            CPU_1_Temp.text = cduSystemConsumption.cpu_info.CPU1_Vcore_Temp;
-            CPU_1_Power.text = cduSystemConsumption.cpu_info.CPU1_Vcore_Pwr;
+            CPU_0_Temp.text = $"Temp {cduSystemConsumption.cpu_info.CPU0_Vcore_Temp}C";
+            CPU_0_Power.text = $"Pwr {cduSystemConsumption.cpu_info.CPU0_Vcore_Pwr}w";
+            CPU_1_Temp.text = $"Temp {cduSystemConsumption.cpu_info.CPU1_Vcore_Temp}C";
+            CPU_1_Power.text = $"Pwr {cduSystemConsumption.cpu_info.CPU1_Vcore_Pwr}w";
 
-            TH_Text.text = cduSystemConsumption.temperature1_high + "";
-            TL_Text.text = cduSystemConsumption.temperature1_low + "";
-            Ti_Text.text = cduSystemConsumption.temperature2_in + "";
-            To_Text.text = cduSystemConsumption.temperature2_out + "";
-            Wi_Text.text = cduSystemConsumption.temperature_w_in + "";
-            Wo_Text.text = cduSystemConsumption.temperature_w_out + "";
-            PUMPw_Text.text = (cduSystemConsumption.pump + "Hz");
+            TH_Text.text = "TH " + cduSystemConsumption.temperature1_high + "";
+            TL_Text.text = "TL " + cduSystemConsumption.temperature1_low + "";
+            Ti_Text.text = "Ti " + cduSystemConsumption.temperature2_in + "";
+            To_Text.text = "To " + cduSystemConsumption.temperature2_out + "";
+            Wi_Text.text = "Wi " + cduSystemConsumption.temperature_w_in + "";
+            Wo_Text.text = "Wo "+ cduSystemConsumption.temperature_w_out + "";
+            PUMPw_Text.text = "PUMPw" +(cduSystemConsumption.pump + "Hz");
         }
     }
 }

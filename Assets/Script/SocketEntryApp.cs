@@ -10,12 +10,13 @@ using System.IO;
 using System.Net.Http;
 using System;
 using Hsinpa.Utility;
+using Unity.VisualScripting;
 
 namespace Hsinpa
 {
     public class SocketEntryApp : MonoBehaviour
     {
-        
+
 
         [SerializeField]
         private HomePageView homePageView;
@@ -25,23 +26,31 @@ namespace Hsinpa
 
         private Dictionary<string, FullServerData> server_dict = new Dictionary<string, FullServerData>();
         private string test_ip = "ws://localhost:5000";
+        private WebSocket webSocket;
 
         void Start()
         {
             fetch_all();
 
-            using (var ws = new WebSocket(test_ip))
-            {
-                ws.OnMessage += on_socket_message;
+            webSocket = new WebSocket(test_ip);
 
-                ws.Connect();
-            }
+            webSocket.OnMessage += on_socket_message;
+
+            webSocket.OnOpen += (sender, obj) =>
+                {
+                    Debug.Log("Websocket OPEN");
+                };
+
+            webSocket.Connect();
+
 
             detailPageView.SetCallback(back_callback: () =>
             {
                 UtilityFunc.CanvasOps(homePageView.canvasGroup, true);
                 UtilityFunc.CanvasOps(detailPageView.canvasGroup, false);
             });
+
+            // process_single_detail(File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "single_data.json")));
         }
 
         void on_socket_message(object sender, MessageEventArgs e)
@@ -66,10 +75,10 @@ namespace Hsinpa
         {
             Debug.Log("server_id " + server_id);
 
-            detailPageView.SetId(server_id);
-
             if (server_dict.TryGetValue(server_id, out FullServerData server_data))
             {
+                detailPageView.SetId(server_data.server_ip);
+
                 detailPageView.UpdateData(server_data);
                 UtilityFunc.CanvasOps(homePageView.canvasGroup, false);
                 UtilityFunc.CanvasOps(detailPageView.canvasGroup, true);
@@ -82,29 +91,37 @@ namespace Hsinpa
         {
             HttpClient sharedClient = new HttpClient();
             sharedClient.Timeout = TimeSpan.FromSeconds(3);
+            //try
+            //{
+            var fetch_response = await sharedClient.GetAsync(APIStatic.FetchAllServer);
 
-            try
+            Debug.Log("Fetch suscess " + fetch_response.IsSuccessStatusCode);
+
+            if (fetch_response.IsSuccessStatusCode)
             {
-                var fetch_response = await sharedClient.GetAsync(APIStatic.FetchAllServer);
+                var json_response = await fetch_response.Content.ReadAsStringAsync();
+                Debug.Log(json_response);
 
-                Debug.Log("Fetch suscess " + fetch_response.IsSuccessStatusCode);
-
-                if (fetch_response.IsSuccessStatusCode)
-                {
-                    var json_response = await fetch_response.Content.ReadAsStringAsync();
-                    Debug.Log(json_response);
-
-                    SingleServerData[] server_array = JsonHelper.FromJson<SingleServerData>(json_response);
-
-                    foreach (SingleServerData ssd in server_array)
-                        fetch_single_detail(ssd._id);
-                }
-
-                sharedClient.Dispose();
+                process_fetch_all(json_response);
             }
-            catch
+
+            sharedClient.Dispose();
+            //}
+            //catch(Exception e)
+            //{
+            //    Debug.LogError(e.Message);
+            //    Debug.LogError("fetch_all fail");
+            //}
+        }
+
+        void process_fetch_all(string raw_fetch_all_text)
+        {
+            var simple_json = SimpleJSON.JSON.Parse(raw_fetch_all_text).AsArray;
+            for (int i = 0; i < simple_json.Count; i++)
             {
-                Debug.LogError("fetch_all fail");
+                Debug.Log(simple_json[i]["_id"].Value);
+                fetch_single_detail(simple_json[i]["_id"].Value);
+
             }
         }
 
@@ -119,13 +136,32 @@ namespace Hsinpa
             var json_response = await fetch_response.Content.ReadAsStringAsync();
             Debug.Log(json_response);
 
-            FullServerData server_detail = JsonUtility.FromJson<FullServerData>(json_response);
+            //FullServerData server_detail = JsonUtility.FromJson<FullServerData>(json_response);
 
-            Utility.UtilityFunc.SetDictionary(server_dict, id, server_detail);
+            //server_dict = Utility.UtilityFunc.SetDictionary(server_dict, id, server_detail);
 
-            homePageView.PushOrUpdateServer(server_detail, on_homepage_server_click);
+            //homePageView.PushOrUpdateServer(server_detail, on_homepage_server_click);
+
+            process_single_detail(json_response);
 
             sharedClient.Dispose();
+        }
+
+        void process_single_detail(string fetch_single_text)
+        {
+            FullServerData server_detail = JsonUtility.FromJson<FullServerData>(fetch_single_text);
+
+            server_dict = Utility.UtilityFunc.SetDictionary(server_dict, server_detail._id, server_detail);;
+
+            homePageView.PushOrUpdateServer(server_detail, on_homepage_server_click);
+        }
+
+        private void OnDestroy()
+        {
+            if (webSocket != null)
+            {
+                webSocket = null;
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7041846457111882436}
   - component: {fileID: 6887524613206888950}
   - component: {fileID: 7688332981151583757}
+  - component: {fileID: 6870694057476502602}
   m_Layer: 5
   m_Name: StateButton
   m_TagString: Untagged
@@ -27,7 +28,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4045001739933137644}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -62,8 +63,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.06666667, g: 0.34509805, b: 0.78039217, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.8, g: 0.8, b: 0.8, a: 0.6}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -79,8 +80,8 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  borderWidth: 2
-  falloffDistance: 5
+  borderWidth: 0
+  falloffDistance: 0
 --- !u!114 &6887524613206888950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +110,119 @@ MonoBehaviour:
   background_image: {fileID: 6323745065425137996}
   highlight_color: {r: 1, g: 1, b: 1, a: 1}
   origin_color: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &6870694057476502602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4045001739933137644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e050f97522bd8c44ba9e163ab0a3370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 0
+  m_TargetGraphic: {fileID: 7041846457111882436}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+  m_char_list:
+  - stateStructs:
+    - state: 0
+      compositions:
+      - target: {fileID: 7041846457111882436}
+        styles:
+          color: {r: 1, g: 1, b: 1, a: 1}
+          scale: 1
+          rotation: 0
+          font: {fileID: 0}
+          font_asset: {fileID: 0}
+          size: 0
+          sprite: {fileID: 0}
+        is_expanded: 0
+      - target: {fileID: 6323745065425137996}
+        styles:
+          color: {r: 0.972549, g: 0.9843137, b: 1, a: 1}
+          scale: 1
+          rotation: 0
+          font: {fileID: 0}
+          font_asset: {fileID: 0}
+          size: 0
+          sprite: {fileID: 0}
+        is_expanded: 0
+      - target: {fileID: 2991543193702656906}
+        styles:
+          color: {r: 0.06666667, g: 0.34509805, b: 0.78039217, a: 1}
+          scale: 1
+          rotation: 0
+          font: {fileID: 0}
+          font_asset: {fileID: 11400000, guid: 5717f68dc9af5244b9ebfeae91a348f7, type: 2}
+          size: 18
+          sprite: {fileID: 0}
+        is_expanded: 0
+  - stateStructs:
+    - state: 0
+      compositions:
+      - target: {fileID: 7041846457111882436}
+        styles:
+          color: {r: 1, g: 1, b: 1, a: 1}
+          scale: 1
+          rotation: 0
+          font: {fileID: 0}
+          font_asset: {fileID: 0}
+          size: 0
+          sprite: {fileID: 0}
+        is_expanded: 0
+      - target: {fileID: 6323745065425137996}
+        styles:
+          color: {r: 0.06666667, g: 0.34509805, b: 0.78039217, a: 1}
+          scale: 1
+          rotation: 0
+          font: {fileID: 0}
+          font_asset: {fileID: 0}
+          size: 0
+          sprite: {fileID: 0}
+        is_expanded: 1
+      - target: {fileID: 2991543193702656906}
+        styles:
+          color: {r: 1, g: 1, b: 1, a: 1}
+          scale: 1
+          rotation: 0
+          font: {fileID: 0}
+          font_asset: {fileID: 11400000, guid: 5717f68dc9af5244b9ebfeae91a348f7, type: 2}
+          size: 18
+          sprite: {fileID: 0}
+        is_expanded: 1
+  m_uiStylesheetSRP: {fileID: 11400000, guid: 5bd4cc9e0ec9bf14f9e86cd2647707c3, type: 2}
+  m_styleLength: 2
 --- !u!1 &6362199932684949621
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +248,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6362199932684949621}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -183,8 +297,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291254289
-  m_fontColor: {r: 0.06666667, g: 0.34509805, b: 0.78039217, a: 1}
+    rgba: 2577352206
+  m_fontColor: {r: 0.05333334, g: 0.27607843, b: 0.6243138, a: 0.6}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -269,7 +383,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8336675220756593737}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -302,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.972549, g: 0.9843137, b: 1, a: 1}
+  m_Color: {r: 0.7780392, g: 0.78745097, b: 0.8, a: 0.6}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

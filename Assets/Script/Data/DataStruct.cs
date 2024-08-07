@@ -13,6 +13,7 @@ public class DataStruct
         public string server_ip;
     }
 
+    [System.Serializable]
     public class FullServerData
     {
         public string _id;
@@ -49,6 +50,7 @@ public class DataStruct
         }
     }
 
+    [System.Serializable]
     public class CDUInfo
     {
         public string CPU0_Vcore_Temp;
@@ -57,6 +59,7 @@ public class DataStruct
         public string CPU1_Vcore_Pwr;
     }
 
+    [System.Serializable]
     public class Status
     {
         public bool stop;
