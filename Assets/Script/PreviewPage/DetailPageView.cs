@@ -135,7 +135,7 @@ namespace Hsinpa
             To_Text.text = "To " + cduSystemConsumption.temperature2_out + "";
             Wi_Text.text = "Wi " + cduSystemConsumption.temperature_w_in + "";
             Wo_Text.text = "Wo "+ cduSystemConsumption.temperature_w_out + "";
-            PUMPw_Text.text = "PUMPw" +cduSystemConsumption.pump + "Hz";
+            PUMPw_Text.text = "PUMPw " +cduSystemConsumption.pump + "Hz";
         }
     }
 }

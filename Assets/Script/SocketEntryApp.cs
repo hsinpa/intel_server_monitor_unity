@@ -28,6 +28,8 @@ namespace Hsinpa
         private string test_ip = "ws://localhost:5000";
         private WebSocket webSocket;
 
+        private string threadServerDataID = null;
+
         void Start()
         {
             fetch_all();
@@ -53,22 +55,42 @@ namespace Hsinpa
             // process_single_detail(File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "single_data.json")));
         }
 
+        private void Update()
+        {
+            if (threadServerDataID != null) {
+                fetch_single_detail(threadServerDataID);
+                threadServerDataID = null;
+            } 
+        }
+
         void on_socket_message(object sender, MessageEventArgs e)
         {
             Debug.Log("on_socket_message \n" + e.Data);
 
-            FullServerData server_data = JsonUtility.FromJson<FullServerData>(e.Data);
+            try
+            {
+                string server_id = SimpleJSON.JSON.Parse(e.Data)["_id"].Value;
+                threadServerDataID = server_id;
+            }
+            catch (Exception err)
+            {
+                Debug.LogError("on_socket_message \n" + err.Message);
 
-            if (server_dict.ContainsKey(server_data.server_ip))
-            {
-                server_dict[server_data.server_ip] = server_data;
-            } else
-            {
-                server_dict.Add(server_data.server_ip, server_data);
             }
 
-            homePageView.PushOrUpdateServer(server_data, on_homepage_server_click);
-            detailPageView.UpdateData(server_data);
+
+            //FullServerData server_data = JsonUtility.FromJson<FullServerData>(e.Data);
+
+            //if (server_dict.ContainsKey(server_data.server_ip))
+            //{
+            //    server_dict[server_data.server_ip] = server_data;
+            //} else
+            //{
+            //    server_dict.Add(server_data.server_ip, server_data);
+            //}
+
+            //homePageView.PushOrUpdateServer(server_data, on_homepage_server_click);
+            //detailPageView.UpdateData(server_data);
         }
 
         void on_homepage_server_click(string server_id)
@@ -154,6 +176,9 @@ namespace Hsinpa
             server_dict = Utility.UtilityFunc.SetDictionary(server_dict, server_detail._id, server_detail);;
 
             homePageView.PushOrUpdateServer(server_detail, on_homepage_server_click);
+
+            detailPageView.SetId(server_detail.server_ip);
+            detailPageView.UpdateData(server_detail);
         }
 
         private void OnDestroy()
