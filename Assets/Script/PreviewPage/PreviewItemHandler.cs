@@ -19,12 +19,21 @@ namespace Hsinpa
         private bool is_pressed = false;
         private Vector2 last_position;
         private Vector2 delta_position;
+        private Quaternion origin_rotation;
+
+        private void Start()
+        {
+            origin_rotation = preview_object.rotation;
+        }
 
         private void Update()
         {
             if (is_pressed == false) return;
+        }
 
-
+        public void ResetRotation()
+        {
+            preview_object.rotation = origin_rotation;
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -37,7 +46,6 @@ namespace Hsinpa
 
         public void OnPointerUp(PointerEventData eventData) { 
             is_pressed = false;
-            Debug.Log(eventData.position);
         }
 
         public void OnPointerMove(PointerEventData eventData)
@@ -66,6 +74,10 @@ namespace Hsinpa
 
             // yaw
             preview_object.Rotate(0f, yaw * rotate_strength * Time.deltaTime, 0f, Space.World);
+
+            //var euler_angle = preview_object.rotation.eulerAngles;
+
+            //preview_object.rotation = Quaternion.Euler(euler_angle.x, euler_angle.y, 0);
         }
     }
 }

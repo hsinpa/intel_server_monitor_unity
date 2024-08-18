@@ -86,6 +86,9 @@ namespace Hsinpa
         [Header("Right Panel")]
         [Header("Server 3D")]
         [SerializeField]
+        private PreviewItemHandler preview_ui;
+
+        [SerializeField]
         private TextMeshProUGUI device_name;
 
         [SerializeField]
@@ -98,7 +101,11 @@ namespace Hsinpa
 
         public void SetCallback(System.Action back_callback)
         {
-            UtilityFunc.SetSimpleBtnEvent(back_btn, back_callback);
+            UtilityFunc.SetSimpleBtnEvent(back_btn, () => {
+
+                back_callback?.Invoke();
+                preview_ui.ResetRotation();
+            });
         }
 
         public void SetId(string server_ip)
