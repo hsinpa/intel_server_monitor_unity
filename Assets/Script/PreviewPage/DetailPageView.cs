@@ -95,6 +95,9 @@ namespace Hsinpa
         private TextMeshProUGUI device_id;
 
         [SerializeField]
+        private Image overheat;
+
+        [SerializeField]
         private Button back_btn;
 
         private string _server_ip;
@@ -143,6 +146,8 @@ namespace Hsinpa
             Wi_Text.text = "Wi " + cduSystemConsumption.temperature_w_in + "";
             Wo_Text.text = "Wo "+ cduSystemConsumption.temperature_w_out + "";
             PUMPw_Text.text = "PUMPw " +cduSystemConsumption.pump + "Hz";
+
+            overheat.enabled = float.Parse(cduSystemConsumption.cpu_info.CPU0_Vcore_Temp) >= 70;
         }
     }
 }

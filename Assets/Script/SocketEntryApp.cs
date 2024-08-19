@@ -52,7 +52,11 @@ namespace Hsinpa
                 UtilityFunc.CanvasOps(detailPageView.canvasGroup, false);
             });
 
-            // process_single_detail(File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "single_data.json")));
+            for (int i = 1; i <= 5; i++)
+            {
+                string test_text = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "single_data_" + i +".json"));
+                process_single_detail(test_text);
+            }
         }
 
         private void Update()
