@@ -29,6 +29,7 @@ namespace Hsinpa
         private WebSocket webSocket;
 
         private string threadServerDataID = null;
+        private int incremental_id = 1;
 
         void Start()
         {
@@ -177,12 +178,15 @@ namespace Hsinpa
         {
             FullServerData server_detail = JsonUtility.FromJson<FullServerData>(fetch_single_text);
 
+            server_detail.device_name = "Intel 4U 1P-0"+incremental_id;
             server_dict = Utility.UtilityFunc.SetDictionary(server_dict, server_detail._id, server_detail);;
 
             homePageView.PushOrUpdateServer(server_detail, on_homepage_server_click);
 
             detailPageView.SetId(server_detail.server_ip);
             detailPageView.UpdateData(server_detail);
+
+            incremental_id++;
         }
 
         private void OnDestroy()

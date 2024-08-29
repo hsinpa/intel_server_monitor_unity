@@ -1,4 +1,5 @@
 using Hsinpa.Utility;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -123,7 +124,7 @@ namespace Hsinpa
             device_name.text = cduSystemConsumption.device_name;
             device_id.text = cduSystemConsumption.device_id;
 
-            ErrorCode.text = cduSystemConsumption.error_code + "";
+            ErrorCode.text = "錯誤碼 " + cduSystemConsumption.error_code + "";
 
             stop_status.SetCharacteristic(cduSystemConsumption.status.stop ? 1 : 0);
             auto_status.SetCharacteristic(cduSystemConsumption.status.auto ? 1 : 0);
@@ -131,23 +132,34 @@ namespace Hsinpa
             error_status.SetCharacteristic(cduSystemConsumption.status.error ? 1 : 0);
 
             power_slot.SetText("功率" + cduSystemConsumption.power + "W");
-            voltage_slot.SetText("電壓" + cduSystemConsumption.voltage + "V");
+            voltage_slot.SetText("電壓" + Math.Round(cduSystemConsumption.voltage / 10f, 1) + "V");
             electricity_slot.SetText("電流" + cduSystemConsumption.electric_current + "A");
 
-            CPU_0_Temp.text = $"Temp {cduSystemConsumption.cpu_info.CPU0_Vcore_Temp}C";
-            CPU_0_Power.text = $"Pwr {cduSystemConsumption.cpu_info.CPU0_Vcore_Pwr}w";
-            CPU_1_Temp.text = $"Temp {cduSystemConsumption.cpu_info.CPU1_Vcore_Temp}C";
-            CPU_1_Power.text = $"Pwr {cduSystemConsumption.cpu_info.CPU1_Vcore_Pwr}w";
+            CPU_0_Temp.text = $"晶片溫度 {cduSystemConsumption.cpu_info.CPU0_Vcore_Temp}C";
+            CPU_0_Power.text = $"耗能 {cduSystemConsumption.cpu_info.CPU0_Vcore_Pwr}w";
+            CPU_1_Temp.text = $"晶片溫度 {cduSystemConsumption.cpu_info.CPU1_Vcore_Temp}C";
+            CPU_1_Power.text = $"耗能 {cduSystemConsumption.cpu_info.CPU1_Vcore_Pwr}w";
 
-            TH_Text.text = "TH " + cduSystemConsumption.temperature1_high + "";
-            TL_Text.text = "TL " + cduSystemConsumption.temperature1_low + "";
-            Ti_Text.text = "Ti " + cduSystemConsumption.temperature2_in + "";
-            To_Text.text = "To " + cduSystemConsumption.temperature2_out + "";
-            Wi_Text.text = "Wi " + cduSystemConsumption.temperature_w_in + "";
-            Wo_Text.text = "Wo "+ cduSystemConsumption.temperature_w_out + "";
-            PUMPw_Text.text = "PUMPw " +cduSystemConsumption.pump + "Hz";
+            TH_Text.text = "TH " + Math.Round(cduSystemConsumption.temperature1_high / 10f, 1) + "C";
+            TL_Text.text = "TL " + Math.Round(cduSystemConsumption.temperature1_low / 10f, 1) + "C";
+            Ti_Text.text = "Ti " + Math.Round(cduSystemConsumption.temperature2_in / 10f, 1) + "C";
+            To_Text.text = "To " + Math.Round(cduSystemConsumption.temperature2_out / 10f, 1)+ "C";
+            Wi_Text.text = "Wi " + Math.Round(cduSystemConsumption.temperature_w_in / 10f, 1) + "C";
+            Wo_Text.text = "Wo "+ Math.Round(cduSystemConsumption.temperature_w_out/10, 1) + "C";
 
-            overheat.enabled = float.Parse(cduSystemConsumption.cpu_info.CPU0_Vcore_Temp) >= 70;
+            LS_Text.text = "液位高度 " + cduSystemConsumption.level + "mm";
+            PUMPw_Text.text = "泵轉速 " +Math.Round(cduSystemConsumption.pump/100f, 0) + "Hz";
+            Pi_Text.text = "泵出口壓力 " +Math.Round(cduSystemConsumption.pressure/100f, 2) + " bar";
+
+            // overheat.enabled = float.Parse(cduSystemConsumption.cpu_info.CPU0_Vcore_Temp) >= 70;
+        }
+
+        private float str_to_num(string n_string, float divident, int round_to_digit) {
+            if (float.TryParse(n_string, out float parse_float)) {
+                return (float) Math.Round(parse_float/divident, round_to_digit);
+            }
+
+            return 0;  
         }
     }
 }

@@ -28,7 +28,7 @@ public class ServerDeviceView : MonoBehaviour, IPointerClickHandler
     {
         server_name.text = p_server_name;
         server_code.text = server_serial_code;
-        heat_tag.gameObject.SetActive(temperature >= 70);
+        // heat_tag.gameObject.SetActive(temperature >= 70);
 
         this._id = _id;
         this._device_view_callback = device_view_callback;
