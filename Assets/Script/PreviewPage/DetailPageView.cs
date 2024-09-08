@@ -131,9 +131,9 @@ namespace Hsinpa
             manual_status.SetCharacteristic(cduSystemConsumption.status.manual ? 1 : 0);
             error_status.SetCharacteristic(cduSystemConsumption.status.error ? 1 : 0);
 
-            power_slot.SetText("功率" + cduSystemConsumption.power + "W");
-            voltage_slot.SetText("電壓" + Math.Round(cduSystemConsumption.voltage / 10f, 1) + "V");
-            electricity_slot.SetText("電流" + cduSystemConsumption.electric_current + "A");
+            power_slot.SetText("CDU功率 " + cduSystemConsumption.power + "W");
+            voltage_slot.SetText("CDU電壓 " + Math.Round(cduSystemConsumption.voltage / 10f, 1) + "V");
+            electricity_slot.SetText("CDU電流 " + cduSystemConsumption.electric_current + "A");
 
             CPU_0_Temp.text = $"晶片溫度 {cduSystemConsumption.cpu_info.CPU0_Vcore_Temp}C";
             CPU_0_Power.text = $"耗能 {cduSystemConsumption.cpu_info.CPU0_Vcore_Pwr}w";
