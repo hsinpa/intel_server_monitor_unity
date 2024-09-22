@@ -191,7 +191,7 @@ namespace Hsinpa
 
             homePageView.PushOrUpdateServer(server_detail, on_homepage_server_click);
 
-            detailPageView.SetId(server_detail.server_ip);
+            //detailPageView.SetId(server_detail.server_ip);
             detailPageView.UpdateData(server_detail);
         }
 

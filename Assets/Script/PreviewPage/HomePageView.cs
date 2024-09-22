@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static DataStruct;
 using Hsinpa.Utility;
+using UnityEngine.UI;
 
 public class HomePageView : MonoBehaviour
 {
@@ -15,11 +16,19 @@ public class HomePageView : MonoBehaviour
     [SerializeField]
     private ServerDeviceView server_view_prefab;
 
+    [SerializeField]
+    private Button quit_button;
+
     private Dictionary<string, ServerDeviceView> serverViewDict = new Dictionary<string, ServerDeviceView>();
 
     public void Start()
     {
         UtilityFunc.ClearChildObject(server_container);
+
+        UtilityFunc.SetSimpleBtnEvent(quit_button, () =>
+        {
+            Application.Quit();
+        });
     }
 
     public void PushOrUpdateServer(FullServerData fullServerData, System.Action<string> device_view_callback)
