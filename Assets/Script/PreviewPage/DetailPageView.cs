@@ -148,8 +148,8 @@ namespace Hsinpa
             Wo_Text.text = "Wo "+ Math.Round(cduSystemConsumption.temperature_w_out/10, 1) + "C";
 
             LS_Text.text = "液位高度 " + cduSystemConsumption.level + "mm";
-            PUMPw_Text.text = "泵轉速 " +Math.Round(cduSystemConsumption.pump/100f, 0) + "Hz";
-            Pi_Text.text = "泵出口壓力 " +Math.Round(cduSystemConsumption.pressure/100f, 2) + " bar";
+            PUMPw_Text.text = "泵轉速 " + Math.Round(cduSystemConsumption.pump/100f, 0) + "Hz";
+            Pi_Text.text = "泵出口壓力 " + Math.Round(cduSystemConsumption.pressure/100f, 2) + " bar";
 
             // overheat.enabled = float.Parse(cduSystemConsumption.cpu_info.CPU0_Vcore_Temp) >= 70;
         }
